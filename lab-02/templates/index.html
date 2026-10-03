@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>COS339 - Caesar & Playfair</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="container">
+    <h1>COS339 - Mã hóa với Python</h1>
+    <p class="subtitle">Bài thực hành: Caesar, Playfair và giao diện web Flask</p>
+
+    <section class="card">
+      <h2>Caesar Cipher</h2>
+      <label for="caesar-text">Văn bản</label>
+      <textarea id="caesar-text" rows="4" placeholder="Ví dụ: CHIENTRANH"></textarea>
+
+      <label for="caesar-key">Khóa (0-25)</label>
+      <input id="caesar-key" type="number" min="0" max="25" value="17">
+
+      <div class="actions">
+        <button onclick="runCipher('caesar', 'encrypt')">Mã hóa</button>
+        <button class="secondary" onclick="runCipher('caesar', 'decrypt')">Giải mã</button>
+      </div>
+
+      <label for="caesar-result">Kết quả</label>
+      <textarea id="caesar-result" rows="3" readonly></textarea>
+    </section>
+
+    <section class="card">
+      <h2>Playfair Cipher</h2>
+      <label for="playfair-text">Văn bản</label>
+      <textarea id="playfair-text" rows="4" placeholder="Ví dụ: HELLOUXME"></textarea>
+
+      <label for="playfair-key">Từ khóa</label>
+      <input id="playfair-key" type="text" value="MONARCHY">
+
+      <div class="actions">
+        <button onclick="runCipher('playfair', 'encrypt')">Mã hóa</button>
+        <button class="secondary" onclick="runCipher('playfair', 'decrypt')">Giải mã</button>
+      </div>
+
+      <label for="playfair-result">Kết quả</label>
+      <textarea id="playfair-result" rows="3" readonly></textarea>
+      <p class="note">Playfair dùng ma trận 5x5, I/J dùng chung một ô. Khi mã hóa, chữ X được dùng để tách cặp ký tự trùng hoặc bổ sung ký tự cuối.</p>
+    </section>
+  </main>
+
+  <script>
+    async function runCipher(cipher, action) {
+      const text = document.getElementById(`${cipher}-text`).value;
+      const key = document.getElementById(`${cipher}-key`).value;
+      const resultBox = document.getElementById(`${cipher}-result`);
+
+      resultBox.value = 'Đang xử lý...';
+
+      try {
+        const response = await fetch(`/api/${cipher}/${action}`, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({text, key})
+        });
+        const data = await response.json();
+        resultBox.value = data.result ?? data.error ?? 'Có lỗi xảy ra.';
+      } catch (error) {
+        resultBox.value = 'Không thể kết nối tới Flask server.';
+      }
+    }
+  </script>
+</body>
+</html>

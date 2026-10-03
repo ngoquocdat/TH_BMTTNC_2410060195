@@ -1,0 +1,47 @@
+{
+  "info": {
+    "name": "COS339 Lab 02 - Caesar & Playfair",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {"key": "baseUrl", "value": "http://127.0.0.1:5000"}
+  ],
+  "item": [
+    {
+      "name": "Caesar Encrypt",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": {"mode": "raw", "raw": "{\n  \"text\": \"CHIENTRANH\",\n  \"key\": 17\n}"},
+        "url": "{{baseUrl}}/api/caesar/encrypt"
+      }
+    },
+    {
+      "name": "Caesar Decrypt",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": {"mode": "raw", "raw": "{\n  \"text\": \"TYZVEKIREY\",\n  \"key\": 17\n}"},
+        "url": "{{baseUrl}}/api/caesar/decrypt"
+      }
+    },
+    {
+      "name": "Playfair Encrypt",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": {"mode": "raw", "raw": "{\n  \"text\": \"HELLOUXME\",\n  \"key\": \"MONARCHY\"\n}"},
+        "url": "{{baseUrl}}/api/playfair/encrypt"
+      }
+    },
+    {
+      "name": "Playfair Decrypt",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": {"mode": "raw", "raw": "{\n  \"text\": \"CFSUPMVZCL\",\n  \"key\": \"MONARCHY\"\n}"},
+        "url": "{{baseUrl}}/api/playfair/decrypt"
+      }
+    }
+  ]
+}
