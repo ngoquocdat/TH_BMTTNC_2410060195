@@ -1,0 +1,32 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Lab 01 - Hello Python",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/lab-01/01_environment/hello.py",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Lab 01 - Student Manager",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/lab-01/04_oop/student_manager.py",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Lab 02 - Flask",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "flask",
+      "env": {
+        "FLASK_APP": "lab-02/app.py",
+        "FLASK_DEBUG": "1"
+      },
+      "args": ["run"],
+      "jinja": true,
+      "console": "integratedTerminal"
+    }
+  ]
+}
